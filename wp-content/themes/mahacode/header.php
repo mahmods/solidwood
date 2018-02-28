@@ -44,22 +44,21 @@
             <div class="social">
                 <ul class="list-inline">
                     <li>
-                        <a href="#" class="fa fa-facebook"></a>
+                        <a href="<?=get_field("social", "options")['facebook']?>" class="fa fa-facebook"></a>
                     </li>
                     <li>
-                        <a href="#" class="fa fa-twitter"></a>
+                        <a href="<?=get_field("social", "options")['twitter']?>" class="fa fa-twitter"></a>
                     </li>
                     <li>
-                        <a href="#" class="fa fa-instagram"></a>
+                        <a href="<?=get_field("social", "options")['instagram']?>" class="fa fa-instagram"></a>
                     </li>
 
                 </ul>
             </div>
             <div class="languge">
-                <select>
-					<option>English</option>
-					<option>العربية</option>
-				</select>
+                <?php $langs = pll_the_languages(array(
+                    'dropdown' => 1
+                ));?>
             </div>
         </div>
     </div>

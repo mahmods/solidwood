@@ -18,7 +18,7 @@
         <div class="last-footer">
 
             <div class="container">
-                <p class="copy"> All Copy Right Resived</p>
+                <p class="copy"><?php pll_e("copyright_text") ?></p>
                 <a href="#button" class="button-scrool"></a>
                 <div class="mahacode-copyrights">
                     <a href="http://mahacode.com/" class="logo"><img src="<?=get_template_directory_uri()?>/img/maha.png" alt=""></a>
@@ -46,6 +46,7 @@
 
 </div>
 <!--End Home Page-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRtGkj_ZAI1LIlw1XqzqBCUuJjQB0RVTk"></script>
 <?php wp_footer(); ?>
 </body>
 

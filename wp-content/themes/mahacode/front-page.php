@@ -16,144 +16,41 @@ get_header(); ?>
 
 <!-- Start Home Page-->
 <div id="fullpage">
-    <!--Start First Page =1= -->
-    <div class="section  " data-anchor="button">
-    <div data-src="<?=get_template_directory_uri()?>/img/home3.png" class="background "> </div> 
+    <?php $images = get_field("gallery") ?>
+	<?php foreach ($images as $index => $image) : ?>
+    <!--Start Page =<?=$index?>= -->
+    <div class="section" data-anchor="button">
+    <div data-src="<?=$image['url']?>" class="background"> </div> 
     </div>
+    <!--End Page =<?=$index?>= -->
+    <?php endforeach; ?>
 
-    <!--End First Page =1= -->
+
+    <?php $projects = new WP_QUERY(array('post_type'=>'project','posts_per_page'=>5)) ?>
+    <?php foreach ($projects->posts as $index => $project) : ?>
     <div class="section">
-        <div data-src="<?=get_template_directory_uri()?>/img/closet3.png" class="background"></div>
-    </div>
-
-    <div class="section">
-        <div data-src="<?=get_template_directory_uri()?>/img/closet.png" class="background"></div>
-    </div>
-
-    <div class="section">
-        <div data-src="<?=get_template_directory_uri()?>/img/closet2.png" class="background"></div>
-    </div>
-
-    <div class="section">
-        <div data-src="<?=get_template_directory_uri()?>/img/home3.png" class="background"></div>
-    </div>
-
-
-    <div class="section">
-        <div data-src="<?=get_template_directory_uri()?>/img/home.png" class="background"></div>
-    </div>
-
-
-    <div class="section">
-        <div data-src="<?=get_template_directory_uri()?>/img/home8.png" class="background"></div>
+        <div data-src="<?=get_field("cover_image", $project->ID)?>" class="background"></div>
         <div class="footer">
             <div class="container">
                 <ul>
                     <li>
-                        <p>Closet</p>
+                        <p><?=get_the_title($project->ID)?></p>
                     </li>
-                    <li><a href="projects-closts.html">view More Detailes</a></li>
+                    <li><a href="<?=get_the_permalink($project->ID)?>"><?php pll_e("View More Details")?></a></li>
                 </ul>
             </div>
         </div>
     </div>
+    <?php endforeach; ?>
 
+    <?php $slider = get_field("slider") ?>
+	<?php if (count($slider) > 0): ?>
     <div class="section">
-        <div data-src="<?=get_template_directory_uri()?>/img/home2.png" class="background"></div>
-        <div class="footer">
-            <div class="container">
-                <ul>
-                    <li>
-                        <p>Closet</p>
-                    </li>
-                    <li><a href="projects-closts.html">view More Detailes</a></li>
-                </ul>
-            </div>
-        </div>
+        <?php foreach ($slider as $image) : ?>
+            <div class="slide" data-src="<?=$image['url']?>"></div>
+        <?php endforeach; ?>
     </div>
-
-    <div class="section">
-        <div data-src="<?=get_template_directory_uri()?>/img/home9.png" class="background"></div>
-        <div class="footer">
-            <div class="container">
-                <ul>
-                    <li>
-                        <p>Closet</p>
-                    </li>
-                    <li><a href="projects-closts.html">view More Detailes</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="section">
-        <div data-src="<?=get_template_directory_uri()?>/img/door1.png" class="background"></div>
-        <div class="footer">
-            <div class="container">
-                <ul>
-                    <li>
-                        <p>Doors</p>
-                    </li>
-                    <li><a href="projects-doors.html">view More Detailes</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div data-src="<?=get_template_directory_uri()?>/img/door2.png" class="background"></div>
-        <div class="footer">
-            <div class="container">
-                <ul>
-                    <li>
-                        <p>Doors</p>
-                    </li>
-                    <li><a href="projects-doors.html">view More Detailes</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div data-src="<?=get_template_directory_uri()?>/img/door3.png" class="background"></div>
-        <div class="footer">
-            <div class="container">
-                <ul>
-                    <li>
-                        <p>Doors</p>
-                    </li>
-                    <li><a href="projects-doors.html">view More Detailes</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div data-src="<?=get_template_directory_uri()?>/img/door.png" class="background"></div>
-        <div class="footer">
-            <div class="container">
-                <ul>
-                    <li>
-                        <p>Doors</p>
-                    </li>
-                    <li><a href="projects-doors.html">view More Detailes</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="section">
-        <div class="slide" data-src="<?=get_template_directory_uri()?>/img/bg1.png"></div>
-        <div class="slide" data-src="<?=get_template_directory_uri()?>/img/bg2.png"></div>
-        <div class="slide" data-src="<?=get_template_directory_uri()?>/img/bg3.png"></div>
-        <div class="slide" data-src="<?=get_template_directory_uri()?>/img/bg4.png"></div>
-        <div class="slide" data-src="<?=get_template_directory_uri()?>/img/bg5.png"></div>
-
-    </div>
+    <?php endif; ?>
 
 <?php
-get_sidebar();
 get_footer();

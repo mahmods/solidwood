@@ -16,6 +16,7 @@ if ( ! function_exists( 'mahacode_setup' ) ) :
 	 * as indicating support for post thumbnails.
 	 */
 	function mahacode_setup() {
+		define('ACF_EARLY_ACCESS', '5');
 		/*
 		 * Make theme available for translation.
 		 * Translations can be filed in the /languages/ directory.
@@ -118,10 +119,15 @@ add_action( 'widgets_init', 'mahacode_widgets_init' );
  */
 function mahacode_scripts() {
 	wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/css/font-awesome.min.css' );
-	wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/css/bootstrap.css' );
+	wp_enqueue_style( 'bootstrap-grid', get_template_directory_uri() . '/css/bootstrap-grid.css' );
 	wp_enqueue_style( 'fullpage', get_template_directory_uri() . '/css/jquery.fullpage.css' );
 	wp_enqueue_style( 'animations', get_template_directory_uri() . '/css/animations.css' );
-	wp_enqueue_style( 'theme', get_template_directory_uri() . '/css/theme.css' );
+	if (pll_current_language() == "ar") {
+		wp_enqueue_style( 'theme', get_template_directory_uri() . '/css/theme-rtl.css' );
+	} else {
+		wp_enqueue_style( 'theme', get_template_directory_uri() . '/css/theme.css' );
+	}
+	
 
 	wp_enqueue_script( 'jquery', get_template_directory_uri() . '/js/jquery-3.2.1.min.js', array(), null, true );
 	wp_enqueue_script( 'fullpage-js', get_template_directory_uri() . '/js/jquery.fullpage.js', array(), null, true );
@@ -183,56 +189,59 @@ add_filter('acf/fields/google_map/api', function ( $api ){
 
 // Register Custom Post Type
 function custom_post_type_project() {
-	
-		$labels = array(
-			'name'                  => _x( 'Projects', 'Post Type General Name', 'mahacode' ),
-			'singular_name'         => _x( 'Project', 'Post Type Singular Name', 'mahacode' ),
-			'menu_name'             => __( 'Projects', 'mahacode' ),
-			'name_admin_bar'        => __( 'Projects', 'mahacode' ),
-			'archives'              => __( 'Project Archives', 'mahacode' ),
-			'attributes'            => __( 'Project Attributes', 'mahacode' ),
-			'parent_item_colon'     => __( 'Parent Project:', 'mahacode' ),
-			'all_items'             => __( 'All Projects', 'mahacode' ),
-			'add_new_item'          => __( 'Add New Project', 'mahacode' ),
-			'add_new'               => __( 'Add New', 'mahacode' ),
-			'new_item'              => __( 'New Project', 'mahacode' ),
-			'edit_item'             => __( 'Edit Project', 'mahacode' ),
-			'update_item'           => __( 'Update Project', 'mahacode' ),
-			'view_item'             => __( 'View Project', 'mahacode' ),
-			'view_items'            => __( 'View Projects', 'mahacode' ),
-			'search_items'          => __( 'Search Project', 'mahacode' ),
-			'not_found'             => __( 'Not found', 'mahacode' ),
-			'not_found_in_trash'    => __( 'Not found in Trash', 'mahacode' ),
-			'featured_image'        => __( 'Featured Image', 'mahacode' ),
-			'set_featured_image'    => __( 'Set featured image', 'mahacode' ),
-			'remove_featured_image' => __( 'Remove featured image', 'mahacode' ),
-			'use_featured_image'    => __( 'Use as featured image', 'mahacode' ),
-			'insert_into_item'      => __( 'Insert into Project', 'mahacode' ),
-			'uploaded_to_this_item' => __( 'Uploaded to this Project', 'mahacode' ),
-			'items_list'            => __( 'Projects list', 'mahacode' ),
-			'items_list_navigation' => __( 'Projects list navigation', 'mahacode' ),
-			'filter_items_list'     => __( 'Filter Projects list', 'mahacode' ),
-		);
-		$args = array(
-			'label'                 => __( 'Project', 'mahacode' ),
-			'description'           => __( 'Solid Wood Projects', 'mahacode' ),
-			'labels'                => $labels,
-			'supports'              => array( 'title' ),
-			'hierarchical'          => false,
-			'public'                => true,
-			'show_ui'               => true,
-			'show_in_menu'          => true,
-			'menu_position'         => 5,
-			'menu_icon'             => 'dashicons-hammer',
-			'show_in_admin_bar'     => true,
-			'show_in_nav_menus'     => true,
-			'can_export'            => true,
-			'has_archive'           => true,
-			'exclude_from_search'   => false,
-			'publicly_queryable'    => true,
-			'capability_type'       => 'post',
-		);
-		register_post_type( 'project', $args );
-	
-	}
-	add_action( 'init', 'custom_post_type_project', 0 );
+	$labels = array(
+		'name'                  => _x( 'Projects', 'Post Type General Name', 'mahacode' ),
+		'singular_name'         => _x( 'Project', 'Post Type Singular Name', 'mahacode' ),
+		'menu_name'             => __( 'Projects', 'mahacode' ),
+		'name_admin_bar'        => __( 'Projects', 'mahacode' ),
+		'archives'              => __( 'Project Archives', 'mahacode' ),
+		'attributes'            => __( 'Project Attributes', 'mahacode' ),
+		'parent_item_colon'     => __( 'Parent Project:', 'mahacode' ),
+		'all_items'             => __( 'All Projects', 'mahacode' ),
+		'add_new_item'          => __( 'Add New Project', 'mahacode' ),
+		'add_new'               => __( 'Add New', 'mahacode' ),
+		'new_item'              => __( 'New Project', 'mahacode' ),
+		'edit_item'             => __( 'Edit Project', 'mahacode' ),
+		'update_item'           => __( 'Update Project', 'mahacode' ),
+		'view_item'             => __( 'View Project', 'mahacode' ),
+		'view_items'            => __( 'View Projects', 'mahacode' ),
+		'search_items'          => __( 'Search Project', 'mahacode' ),
+		'not_found'             => __( 'Not found', 'mahacode' ),
+		'not_found_in_trash'    => __( 'Not found in Trash', 'mahacode' ),
+		'featured_image'        => __( 'Featured Image', 'mahacode' ),
+		'set_featured_image'    => __( 'Set featured image', 'mahacode' ),
+		'remove_featured_image' => __( 'Remove featured image', 'mahacode' ),
+		'use_featured_image'    => __( 'Use as featured image', 'mahacode' ),
+		'insert_into_item'      => __( 'Insert into Project', 'mahacode' ),
+		'uploaded_to_this_item' => __( 'Uploaded to this Project', 'mahacode' ),
+		'items_list'            => __( 'Projects list', 'mahacode' ),
+		'items_list_navigation' => __( 'Projects list navigation', 'mahacode' ),
+		'filter_items_list'     => __( 'Filter Projects list', 'mahacode' ),
+	);
+	$args = array(
+		'label'                 => __( 'Project', 'mahacode' ),
+		'description'           => __( 'Solid Wood Projects', 'mahacode' ),
+		'labels'                => $labels,
+		'supports'              => array( 'title' ),
+		'hierarchical'          => false,
+		'public'                => true,
+		'show_ui'               => true,
+		'show_in_menu'          => true,
+		'menu_position'         => 5,
+		'menu_icon'             => 'dashicons-hammer',
+		'show_in_admin_bar'     => true,
+		'show_in_nav_menus'     => true,
+		'can_export'            => true,
+		'has_archive'           => true,
+		'exclude_from_search'   => false,
+		'publicly_queryable'    => true,
+		'capability_type'       => 'post',
+	);
+	register_post_type( 'project', $args );
+
+}
+add_action( 'init', 'custom_post_type_project', 0 );
+
+add_filter("hf_form_element_class_attr", function() {
+	return "row form-Style";
+});

@@ -11,8 +11,8 @@
         <div class="page " data-src="img/bg-about3.png">
             <div class="container">
                 <div class="col-sm-12">
-                    <h1 class="title">Our Best Project</h1>
-                    <h3>Amazing Projects For You</h3>
+                    <h1 class="title"><?php pll_e("our_projects_title") ?></h1>
+                    <h3><?php pll_e("our_projects_desc") ?></h3>
                 </div>
                 <div class="project">
                     <?php $projects = new WP_QUERY(array(
@@ -23,9 +23,9 @@
                     <?php while ( $projects->have_posts() ) : $projects->the_post(); ?>
                     <a href="<?=the_permalink()?>" class="box">
                         <div class="block-img">
-                            <img src="<?=get_field("main_image")?>" alt="<?=get_field("title")?>">
+                            <img src="<?=get_field("cover_image")?>" alt="<?=get_field("title")?>">
                         </div>
-                        <h6><?=get_field("title")?></h6>
+                        <h6><?=the_title()?></h6>
                     </a>
                     <?php endwhile; ?>
                     <?php endif; ?>
